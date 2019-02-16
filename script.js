@@ -22,8 +22,8 @@ function set(which, to) {
     var ss = to % 10;
     s = "0000" + s.toString(2); // dumb fix so make it proper type
     ss = "0000" + ss.toString(2);
-    console.log(`${which}: ${s}`);
-    console.log(`${which}: ${ss}`);
+    //console.log(`${which}: ${s}`);
+    //console.log(`${which}: ${ss}`);
     //console.log(s.charAt(s.length - 1));
     var x = "0";
     if (which == "hours") x = "h";
@@ -68,7 +68,6 @@ function set(which, to) {
             // do this anyway for better readability
             // s.charAt(s.length - 1)
             // s = 0 | ss = 1
-            console.log(y);
             for (var i = 0; i < 4; i++) {
                 if (!!y[0][i]) {
                     if (s.charAt(s.length - (1 + i)) == "1")
@@ -96,6 +95,5 @@ function dogshit() { // no it says THE DOC
         set("hours", now.getHours());
         set("minutes", now.getMinutes());
         set("seconds", now.getSeconds());
-        console.log(now.getTime());
     }, 75);
 }
