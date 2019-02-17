@@ -1,5 +1,5 @@
 body {
-    background-color: #343434;
+    background-color: rgb(39, 40, 34);
     /* border: 1px solid black; */
     margin: 2;
     padding: 0;
@@ -21,11 +21,15 @@ body {
     transform: translate(-50%, -50%);
 }
 
-td, th {
+td {
+    max-height: 25px;
+    min-height: 25px;
+    height: 25px;
+    max-width: 25px;
+    min-width: 25px;
     width: 25px;
-    background-color: black;
-    padding-left: 2px;
-    padding-right: 2px;
+    background-color: transparent;
+    padding: 0px;
     margin: 0px;
 }
 

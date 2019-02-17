@@ -56,13 +56,13 @@ function set(which, to) {
                     if (s.charAt(s.length - (1 + i)) == "1")
                         y[0][i].style = "background: red;";
                     else
-                        y[0][i].style = "background: black;";
+                        y[0][i].style = "background: transparent;";
                 }
                 if (!!y[1][i]) {
                     if (ss.charAt(ss.length - (1 + i)) == "1")
                         y[1][i].style = "background: red;";
                     else
-                        y[1][i].style = "background: black;";
+                        y[1][i].style = "background: transparent;";
                 }
             }
             break;
