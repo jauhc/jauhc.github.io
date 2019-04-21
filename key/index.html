@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>oh hey</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <style>
+    body {
+    background-color: #343434;
+    border: 0px solid black;
+    margin: 2;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.container {
+    height: 200px;
+    position: relative;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+td, th {
+    width: 25px;
+    background-color: black;
+    padding-left: 2px;
+    padding-right: 2px;
+    margin: 0px;
+}
+
+p, span {
+    color: honeydew;
+    background: none; 
+}</style>
+    <script>
+        function init() {
+            dogshit();
+        }
+
+        function log(data) {
+            console.log(`[Log]: ${data}`);
+        }
+
+        function swapType() {
+            let type = document.getElementById("_type");
+            switch (type.textContent.slice(0, 2)) {
+                case "De":
+                    type.textContent = "Encrypt: ";
+                    break;
+
+                case "En":
+                    type.textContent = "Decrypt: ";
+                    break;
+            }
+        }
+
+        function getType() {
+            // true if decrypting
+            // flase if encrypt
+            let type = document.getElementById("_type");
+            switch (type.textContent.slice(0, 2)) {
+                case "De":
+                    return true;
+                case "En":
+                    return false;
+            }
+        }
+
+        function dogshit() { // no it says THE DOC
+            log(`script live`);
+
+            // Encrypt
+            var ciphertext = CryptoJS.AES.encrypt('my message', '123').toString();
+
+            // Decrypt
+            var bytes = CryptoJS.AES.decrypt(ciphertext, '123');
+            var originalText = bytes.toString(CryptoJS.enc.Utf8);
+
+            log(ciphertext);
+            log(originalText); // 'my message'
+        }
+
+        function readinput() {
+            var _input = document.getElementById("_input");
+            var _key = document.getElementById("_key");
+            var _output = document.getElementById("_output");
+
+            var out = ""
+            if (_key.value == "" || _input.value == "") return;
+            if (getType()) {
+                out = CryptoJS.AES.decrypt(_input.value, _key.value);
+                _output.textContent = out.toString(CryptoJS.enc.Utf8);
+            } else {
+                out = CryptoJS.AES.encrypt(_input.value, _key.value).toString();
+                log(`encrypted "${_input.value}" with key "${_key.value}"`);
+                _output.textContent = out;
+            }
+
+            log(out);
+            if (out == "") return;
+            _input.value = "";
+            _key.value = "";
+        }
+    </script>
+</head>
+
+<body onload=init()>
+    <div class="container">
+        <span onclick="swapType()" id="_type">Decrypt: </span><input autofocus type="text" id="_input"
+            onchange="readinput()" placeholder="owo"><br><br>
+        <span>Key: </span><input autofocus type="text" id="_key" onchange="readinput()" placeholder="key"><br><br>
+        <span id="_output">hey</span>
+    </div>
+</body>
+
+</html>
