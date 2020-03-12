@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>poopthing</title>
+  <style>
+    html {
+      background-color: rgba(128, 111, 126, 0);
+    }
+  </style>
+</head>
+
+<body onload="init()">
+  <script>
+    function init() {
+      console.log("script loaded")
+      assign_trash();
+    }
+
+    function log(d) {
+      console.log("poop:", d);
+    }
+
+    function rng(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    // globals
+    const d_mode = true;
+    var c, ctx, img, safe_x, safe_y;
+    var x, y;
+    var right = true;
+    var down = true;
+
+    function assign_trash() {
+      var d_ctx_tries = 0;
+      while (c == null && ctx == null) {
+
+        c = document.getElementById("canv");
+        ctx = c.getContext("2d");
+        if (d_mode) {
+          d_ctx_tries++
+          log("attempted to get context..")
+        }
+      }
+      if (d_mode) {
+        log(`got context after ${d_ctx_tries} attempt(s)`)
+      }
+      safe_x = c.width - 128;
+      safe_y = c.height - 128;
+      img = create_image("k.png");
+      window.requestAnimationFrame(draw);
+    }
+
+    function clear() {
+      ctx.clearRect(0, 0, canv.width, canv.height);
+    }
+
+    function draw() {
+      detect_collision();
+      clear();
+      ctx.drawImage(img, x, y, 128, 128);
+      window.requestAnimationFrame(draw);
+    }
+
+    function detect_collision() {
+      // cancer pls dont read
+      // if you judge pls do better
+      if (x <= 0) {
+        right = true;
+      }
+      if (x >= safe_x) {
+        right = false;
+      }
+      if (y <= 0) {
+        down = true;
+      }
+      if (y >= safe_y) {
+        down = false;
+      }
+
+      // just negate?
+      let step = 2;
+      if (right) x += step;
+      if (down) y += step;
+      if (!right) x -= step;
+      if (!down) y -= step;
+    }
+
+    function create_image(path) {
+      var img = new Image();
+      img.addEventListener("load", () => {
+        ctx.imageSmoothingEnabled = true;
+        x = rng(2, safe_x - 2);
+        y = rng(2, safe_y - 2);
+        ctx.drawImage(img, x, y, 128, 128);
+      });
+      img.src = path;
+      return img
+    }
+  </script>
+  <!-- <script src="res/js/canvas.js"></script>
+    THIS WAS HERE BUT EMBEDDING FOR EASIER SHARING/DEPLOYMENT
+  -->
+  <div id="main_div">
+    <canvas id="canv" width="1280" height="720" style="border:1px solid black;"></canvas>
+  </div>
+</body>
+
+</html>
